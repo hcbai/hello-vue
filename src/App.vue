@@ -1,12 +1,12 @@
 <template>
-    <div class="app-main">
+    <div class="app-container">
 
         <!-- 顶部 header 部分 -->
         <mt-header fixed title="Vue项目"></mt-header>
 
         <!-- 中间路由 router-view 部分 -->
-        <h1>这是APP组件</h1>
-        <!-- <router-view></router-view> -->
+        <!-- <h1>这是APP组件</h1> -->
+        <router-view></router-view>
 
 
         <!-- 底部 tabbar 部分 -->
@@ -50,7 +50,7 @@
 </script>
 
 <style scoped lang="scss">
-    .app-main {
-        padding: 40px 0 50px
+    .app-container {
+        padding-top: 40px;
     }
 </style>
