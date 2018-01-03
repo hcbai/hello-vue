@@ -1,5 +1,7 @@
 //入口文件
 import Vue from 'vue'
+//导入入口文件
+import App from './App.vue'
 
 //引入路由的包
 import VueRouter from 'vue-router'
@@ -8,9 +10,14 @@ Vue.use(VueRouter)
 //导入路由文件
 import router from './router.js'
 
-//导入入口文件
-import App from './App.vue'
+//导入 vue-resource 包 获取ajax请求
+import VueRescource from 'vue-resource'
+Vue.use(VueRescource)
 
+//轮播图 HomeContainer 
+import { Swipe, SwipeItem } from 'mint-ui';
+Vue.component(Swipe.name, Swipe);
+Vue.component(SwipeItem.name, SwipeItem);
 
 //导入 mui 文件
 import './lib/mui/css/mui.min.css'

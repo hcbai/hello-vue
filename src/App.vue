@@ -6,7 +6,9 @@
 
         <!-- 中间路由 router-view 部分 -->
         <!-- <h1>这是APP组件</h1> -->
+        
         <router-view></router-view>
+        
 
 
         <!-- 底部 tabbar 部分 -->
@@ -52,5 +54,14 @@
 <style scoped lang="scss">
     .app-container {
         padding-top: 40px;
+        // .v-enter {
+        //     transform: translateX(100%)
+        // }
+        // .v-leave {
+        //     transform: translateX(-100%)
+        // }
+        // .v-enter-active, .v-leave-active {
+        //     transition: all 0.5s ease
+        // }
     }
 </style>
