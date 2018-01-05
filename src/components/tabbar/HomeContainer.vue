@@ -48,7 +48,7 @@
         },
         methods: {
             getLunList(){
-                this.$http.get('http://vue.studyit.io/api/getlunbo').then(data => {
+                this.$http.get('api/getlunbo').then(data => {
                     // console.log(data.body.message)
                     if(data.body.status === 0) {
                         this.lunbotuList = data.body.message;

@@ -13,6 +13,8 @@ import router from './router.js'
 //导入 vue-resource 包 获取ajax请求
 import VueRescource from 'vue-resource'
 Vue.use(VueRescource)
+//设置是根路径
+Vue.http.options.root = 'http://vue.studyit.io/'
 
 //轮播图 HomeContainer 
 import { Swipe, SwipeItem } from 'mint-ui';
