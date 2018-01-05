@@ -8,6 +8,7 @@ import SearchContainer from './components/tabbar/SearchContainer.vue'
 import ShopcarContainer from './components/tabbar/ShopcarContainer.vue'
 
 import NewsList from './components/news/NewsList.vue'
+import NewsInfo from './components/news/NewsInfo.vue'
 
 //创建 router 实例 
 let router = new VueRouter({
@@ -17,7 +18,9 @@ let router = new VueRouter({
         { path : '/member' , component : MemberContaienr },
         { path : '/shopcar' , component : SearchContainer },
         { path : '/search' , component : ShopcarContainer },
-        { path : '/home/newslist' , component : NewsList }
+        { path : '/home/newslist' , component : NewsList },
+        { path : '/home/newsinfo/:id' , component : NewsInfo }
+    
     ],
     linkActiveClass : 'mui-active' //使用mui默认高亮类名 覆盖router-link默认的类名router-link-active
 })
