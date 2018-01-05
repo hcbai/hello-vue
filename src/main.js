@@ -13,8 +13,15 @@ import router from './router.js'
 //导入 vue-resource 包 获取ajax请求
 import VueRescource from 'vue-resource'
 Vue.use(VueRescource)
-//设置是根路径
+//设置 根路径
 Vue.http.options.root = 'http://vue.studyit.io/'
+
+//导入格式化时间插件
+import moment from 'moment'
+//定义全局过滤器  定义时间
+Vue.filter('dataFoemat', function(datastr, pattern='YYYY-MM-DD HH:mm:ss'){
+    return moment(datastr).format(pattern)
+})
 
 //轮播图 HomeContainer 
 import { Swipe, SwipeItem } from 'mint-ui';
