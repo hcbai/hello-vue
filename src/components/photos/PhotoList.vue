@@ -49,6 +49,7 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+    // 让滚动条不再警告
+    * { touch-action: pan-y; }
 </style>
