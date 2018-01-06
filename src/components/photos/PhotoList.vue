@@ -4,38 +4,41 @@
         <div id="slider" class="mui-slider">
             <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
                 <div class="mui-scroll">
-                    <a class="mui-control-item mui-active" href="#" data-wid="tab-top-subpage-1.html">
-                        推荐
-                    </a>
-                    <a class="mui-control-item" href="#" data-wid="tab-top-subpage-2.html">
-                        热点
-                    </a>
-                    <a class="mui-control-item" href="#" data-wid="tab-top-subpage-3.html">
-                        北京
-                    </a>
-                    <a class="mui-control-item" href="#" data-wid="tab-top-subpage-4.html">
-                        社会
-                    </a>
-                    <a class="mui-control-item" href="#" data-wid="tab-top-subpage-5.html">
-                        娱乐
-                    </a>
-                    <a class="mui-control-item" href="#" data-wid="tab-top-subpage-6.html">
-                        科技
+                    <a :class="['mui-control-item', item.id == 0?'mui-active':'']" v-for="item in cates" :key="item.id" @click="getPhotoListByCateId(item.id)">
+                        {{item.title}}
                     </a>
                 </div>
             </div>
 		</div>
+
+        <!-- 图片列表区域 -->
+        <ul class="photo-list">
+            <router-link v-for="item in list" :key="item.id" :to="'/home/photoinfo/' + item.id" tag="li">
+                <img v-lazy="item.img_url">
+                <div class="info">
+                    <h1 class="info-title">{{item.title}}</h1>
+                    <div class="info-body">{{item.zhaiyao}}</div>
+                </div>
+            </router-link>
+        </ul>
     </div>
 </template>
 
 <script>
+    import { Toast } from 'mint-ui';
     //引入 mui的js文件
     import mui from '../../lib/mui/js/mui.min.js'
     export default {
         data(){
             return {
-
+                cates : [],  //分类列表
+                list : []   //图片列表
             }
+        },
+        created(){
+            this.getimgcategory();
+            //获取图片列表数据
+            this.getPhotoListByCateId(0)
         },
         mounted(){
             //当页面中的DOM结构加载完执行这个钩子函数 
@@ -44,7 +47,28 @@
             });
         },
         methods: {
-            
+            getimgcategory(){
+                this.$http.get('api/getimgcategory').then(data => {
+                    // console.log(data.body)
+                    if(data.body.status == 0) {
+                            // 手动拼接出一个最完整的 分类列表
+                        data.body.message.unshift({ title: "全部", id: 0 });
+                        this.cates = data.body.message
+                    } else {
+                        Toast('图片分类列表获取失败...')
+                    }
+                }) 
+            },
+            getPhotoListByCateId(cateid){
+                this.$http.get('api/getimages/' + cateid).then(data => {
+                    // console.log(data.body)
+                    if(data.body.status == 0) {
+                        this.list = data.body.message
+                    } else {
+                        Toast('图片列表数据获取失败...')
+                    }
+                }) 
+            }
         }
     }
 </script>
@@ -52,4 +76,41 @@
 <style scoped lang="scss">
     // 让滚动条不再警告
     * { touch-action: pan-y; }
+    //图片列表的css样式    
+    .photo-list {
+        list-style: none;
+        margin: 0;
+        padding: 10px;
+        padding-bottom: 0;
+        li {
+            background-color: #ccc;
+            text-align: center;
+            margin-bottom: 10px;
+            box-shadow: 0 0 9px #999;
+            position: relative;
+            img {
+                width: 100%;
+                vertical-align: middle;
+            }
+            img[lazy=loading] {
+                width: 40px;
+                height: 300px;
+                margin: auto;
+            }
+            .info {
+                color: white;
+                text-align: left;
+                position: absolute;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.4);
+                max-height: 84px;
+                .info-title{
+                    font-size: 14px;
+                }
+                .info-body {
+                    font-size: 13px;
+                }
+            }
+        }
+    }
 </style>
