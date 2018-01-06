@@ -33,7 +33,7 @@
         },
         methods: {
             getCmtList(){
-                this.$http.get('api/getcomments/' + this.$route.params.id + '?pageindex=' + this.pageindex).then(data => {
+                this.$http.get('api/getcomments/' + this.Id + '?pageindex=' + this.pageindex).then(data => {
                     // console.log(data.body);
                     if(data.body.status == 0 ){
                         //数据应该是拼接而不是覆盖
@@ -51,18 +51,16 @@
                 if(this.newBB.trim().length === 0) {
                     return Toast('评论内容不能为空')
                 }
-                this.$http.post('api/postcomment/' + this.Id , {content:this.newBB}).then(data => {
+                this.$http.post('api/postcomment/' + this.$route.params.id , {content:this.newBB.trim()}).then(data => {
                     // console.log(data.body)
                     if(data.body.status == 0 ){
                         this.cmtlist.unshift({user_name:'匿名用户', add_time:Date.now(), content:this.newBB});
                         this.newBB = '';
-                        // Toast('评论提交成功')
                         Toast({
                             message: '评论提交成功',
                             duration: 2000
                         });
                     } else {
-                        // Toast('')
                         Toast({
                             message: '评论提交失败...',
                             duration: 2000
