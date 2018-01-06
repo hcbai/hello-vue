@@ -9,7 +9,7 @@
                     第{{i+1}}楼&nbsp;&nbsp;用户：{{item.user_name}}&nbsp;&nbsp;发表时间：{{item.add_time | dataFormat}}
                 </div>
                 <div class="cmt-body">
-                   {{item.content}}
+                   {{ item.content == '' ? '此用户很懒，啥都没说' : item.content }}
                 </div>
             </div>
         </div>
@@ -27,20 +27,17 @@
                 newBB : ''
             }
         },
-        props:['infoId'],
+        props:['Id'],
         created(){
             this.getCmtList()
         },
         methods: {
             getCmtList(){
-                this.$http.get('api/getcomments/' + this.infoId + '?pageindex=' + this.pageindex).then(data => {
+                this.$http.get('api/getcomments/' + this.Id + '?pageindex=' + this.pageindex).then(data => {
                     // console.log(data.body);
                     if(data.body.status == 0 ){
-                        if(this.pageindex == 1 ){
-                            this.cmtlist = data.body.message
-                        } else {
-                            this.cmtlist = this.cmtlist.concat(data.body.message)
-                        }
+                        //数据应该是拼接而不是覆盖
+                        this.cmtlist = this.cmtlist.concat(data.body.message)
                     } else {
                         Toast('获取评论失败...')
                     }
@@ -51,14 +48,22 @@
                 this.getCmtList();
             },
             setCmtList(){
-                this.$http.post('api/postcomment/' + this.infoId , {content:this.newBB}).then(data => {
+                this.$http.post('api/postcomment/' + this.Id , {content:this.newBB}).then(data => {
                     // console.log(data.body)
                     if(data.body.status == 0 ){
                         this.cmtlist.unshift({user_name:'匿名用户', add_time:Date.now(), content:this.newBB});
                         this.newBB = '';
-                        Toast('评论提交成功')
+                        // Toast('评论提交成功')
+                        Toast({
+                            message: '评论提交成功',
+                            duration: 2000
+                        });
                     } else {
-                        Toast('评论提交失败...')
+                        // Toast('')
+                        Toast({
+                            message: '评论提交失败...',
+                            duration: 2000
+                        });
                     }
                 })
             }

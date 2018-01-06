@@ -11,7 +11,7 @@
             <!-- 主体内容 -->
             <div class="content" v-html="newsInfoList.content"></div> 
             <!-- 评论子组件 -->
-            <comment-box :infoId="id"></comment-box>
+            <comment-box :Id="id"></comment-box>
         </div>
     </div>
 </template>
