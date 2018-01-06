@@ -37,6 +37,10 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 Vue.use(MintUI);
 
+//挂载缩略图组件
+import VuePreview from 'vue-preview'
+Vue.use(VuePreview)
+
 //导入 mui 文件
 import './lib/mui/css/mui.min.css'
 import './lib/mui/css/icons-extra.css'

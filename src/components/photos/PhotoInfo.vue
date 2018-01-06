@@ -7,6 +7,10 @@
         </p>
 
         <!-- 缩略图区域 -->
+        <div class="thumbs">
+            <img class="preview-img" v-for="(item, index) in list" 
+        :src="item.src" height="100" @click="$preview.open(index, list)" :key="item.src">
+        </div>
 
         <!-- 图片内容区域 -->
         <div class="content" v-html="photoinfo.content"></div>
@@ -26,11 +30,13 @@
         data() {
             return {
                 id : this.$route.params.id,  //从路由获取ID
-                photoinfo : {}  //图片详情
+                photoinfo : {},  //图片详情
+                list : []  //缩略图数组
             }
         },
         created(){
-            this.getImgInfo()
+            this.getImgInfo();
+            this. getThumbs();
         },
         methods: {
             getImgInfo(){
@@ -38,6 +44,20 @@
                     // console.log(data.body)
                     if(data.body.status == 0) {
                         this.photoinfo = data.body.message[0]
+                    } else {
+                        Toast('获取失败...')
+                    }
+                })
+            },
+            getThumbs(){
+                this.$http.get('api/getthumimages/' + this.id).then(data => {
+                     if(data.body.status == 0) {
+                        // this.list = data.body.message
+                        data.body.message.forEach(item => {
+                            item.w = 600;
+                            item.h = 400;
+                        });
+                        this.list = data.body.message;
                     } else {
                         Toast('获取失败...')
                     }
@@ -68,6 +88,12 @@
         .content {
             font-size: 13px;
             line-height: 30px;
+        }
+        .thumbs{
+            img{
+                margin: 10px;
+                box-shadow: 0 0 8px #999;
+            }
         }
     }
 </style>
