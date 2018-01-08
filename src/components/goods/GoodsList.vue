@@ -1,6 +1,6 @@
 <template>
     <div class="goods-list">
-        <div class="goods-item" v-for="item in goodslist" :key="item.id">
+        <div class="goods-item" v-for="item in goodslist" :key="item.id" @click="goToGoodsInfo(item.id)">
             <img :src="item.img_url" alt="">
             <h1 class="title">{{ item.title }}</h1>
             <div class="info">
@@ -43,6 +43,10 @@
             getMore(){
                 this.pageindex++;
                 this.getGoodsList();
+            },
+            goToGoodsInfo(id){
+                //编程式导航
+                this.$router.push({ name : 'goodsinfo' , params : { id }})
             }
         }
     }
