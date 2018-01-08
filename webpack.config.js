@@ -10,13 +10,13 @@ module.exports = {
         path : path.join(__dirname, './dist'),  //指定打包文件输出的 目录
         filename : 'build.js'   // 指定文件输出的 文件名
     },
-    devServer:{ // 这是配置 dev-server 命令参数的第二种形式，相对来说，这种方式麻烦一些
-         //  --open --port 3000 --contentBase src --hot
-        open: true, // 自动打开浏览器
-        port: 3000, // 设置启动时候的运行端口
-        contentBase: 'src', // 指定托管的根目录
-        hot: true // 启用热更新 的 第1步
-    },
+    // devServer:{ // 这是配置 dev-server 命令参数的第二种形式，相对来说，这种方式麻烦一些
+    //      //  --open --port 3000 --contentBase src --hot
+    //     open: true, // 自动打开浏览器
+    //     port: 3000, // 设置启动时候的运行端口
+    //     contentBase: 'src', // 指定托管的根目录
+    //     hot: true // 启用热更新 的 第1步
+    // },
     plugins:[  // 配置插件的节点
         new webpack.HotModuleReplacementPlugin(),  // new 一个热更新的 模块对象， 这是 启用热更新的第 3 步
 
